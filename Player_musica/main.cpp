@@ -191,6 +191,7 @@ Mix_PlayMusic(musica,0);
 int z=0;
 
 while(1){
+    cout<<Mix_PlayingMusic()<<endl;
 
     SDL_RenderClear(render);
     if(tocando==true)
@@ -247,7 +248,7 @@ while(1){
 
 }
 Mix_HookMusicFinished(musicFinished);
-if(acabou==true){
+if(acabou==true||Mix_PlayingMusic()==0){
     aux++;
     cout<<endl<<"aux:"<<aux;
     if(aux>12){
