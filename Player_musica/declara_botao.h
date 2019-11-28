@@ -8,7 +8,6 @@
 #include <fstream>
 using namespace std;
 
-
 struct  botao{
     SDL_Rect origem;
     SDL_Rect destino;
@@ -22,13 +21,15 @@ struct botoes{
     botao Bskip;
     botao Breturn;
     botao Bpause;
+    botao Brepeat;
+    botao Brandom;
 };
 
 
 SDL_Texture *CarregaImagem(const char *imagem, SDL_Renderer* renderizador){
     SDL_Surface*img =SDL_LoadBMP(imagem);
     if (img==nullptr){
-        cout<<"Erro ao carregar imagem";
+        //cout<<"Erro ao carregar imagem";
     }
     SDL_Texture*textura=SDL_CreateTextureFromSurface(renderizador,img);
     SDL_FreeSurface(img);
@@ -37,6 +38,30 @@ SDL_Texture *CarregaImagem(const char *imagem, SDL_Renderer* renderizador){
 
 void Declarar_botoes(botoes*Botao,SDL_Renderer*render){
 
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+///RANDOM
+    Botao->Brandom.textura=CarregaImagem("random.bmp",render);
+    Botao->Brandom.origem.x=0;
+    Botao->Brandom.origem.y=0;
+    Botao->Brandom.origem.h=980;
+    Botao->Brandom.origem.w=980;
+    Botao->Brandom.destino.x=470;
+    Botao->Brandom.destino.y=500;
+    Botao->Brandom.destino.h=60;
+    Botao->Brandom.destino.w=60;
+
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//REPEAT
+    Botao->Brepeat.textura=CarregaImagem("repeat.bmp",render);
+    Botao->Brepeat.origem.x=0;
+    Botao->Brepeat.origem.y=0;
+    Botao->Brepeat.origem.h=980;
+    Botao->Brepeat.origem.w=980;
+    Botao->Brepeat.destino.x=270;
+    Botao->Brepeat.destino.y=500;
+    Botao->Brepeat.destino.h=60;
+    Botao->Brepeat.destino.w=60;
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //PLAY
@@ -49,7 +74,7 @@ void Declarar_botoes(botoes*Botao,SDL_Renderer*render){
     Botao->Bplay.destino.y=440;
     Botao->Bplay.destino.h=80;
     Botao->Bplay.destino.w=80;
-    SDL_RenderCopy(render,Botao->Bplay.textura,&Botao->Bplay.origem,&Botao->Bplay.destino);
+
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //RETURN
     Botao->Breturn.textura=CarregaImagem("return.bmp",render);
