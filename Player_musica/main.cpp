@@ -1,49 +1,25 @@
 #include "declara_botao.h"
 #include "verifica_cliques_botoes.h"
+#include "manipula_arquivo.h"
+
+#include <cstdlib>
+#include <ctime>
 
 using namespace std;
 #undef main
 
-
-int Tamanho_array(){
-    ifstream ler;
-    string linha;
-    int i=0;
-    int g=0;
-    ler.open("lista_musica.txt");
-    if(ler.is_open()){
-        while(getline(ler,linha)){
-            if(g>2){
-               i++;
-               }
-            else{g++;}
-        }
-    }cout<<endl<<endl<<endl<<endl<<endl;
-    ler.close();
-    return i;
-
+int Random(int Tamanho){
+    srand((unsigned)time(0));
+    int x;
+    x=(rand()%Tamanho);
+    cout<<x<<endl;
+    return x;
 }
 
 
 
-void ler_playlist(string *local){
-    ifstream ler;
-    string linha;
-    int i=0;
-    int g=0;
-    ler.open("lista_musica.txt");
-    if(ler.is_open()){
-        while(getline(ler,linha)){
-            if(g>2){
-                cout<<linha<<endl;
-               local[i]=linha;
-               i++;
-               }
-            else{g++;}
-        }
-    }cout<<endl<<endl<<endl<<endl<<endl;
 
-}
+
 
 
 
@@ -60,6 +36,9 @@ acabou =true;
 
 int main()
 {
+
+
+
 botoes Botao;
 int x,y;
 
