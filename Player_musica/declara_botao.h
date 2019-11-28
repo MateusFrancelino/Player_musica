@@ -9,6 +9,9 @@
 
 using namespace std;
 
+
+
+
 struct  botao{
     SDL_Rect origem;
     SDL_Rect destino;

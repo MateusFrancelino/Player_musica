@@ -144,19 +144,6 @@ while(1){
 
     Mix_HookMusicFinished(musicFinished);
 
-   /* if((acabou==true&&random==true)||(Mix_PlayingMusic()==0&&random==true)){
-
-        aux=Random(Tamanho);
-
-        Mix_FreeMusic(musica);
-        musica= Mix_LoadMUS(local[aux].c_str());
-        Mix_PlayMusic(musica,0);
-        acabou =false;
-
-        cout << "aux no if de random: "<<aux<<endl;
-    }*/
-
-
     if((acabou==true&&repeat==false)||(Mix_PlayingMusic()==0&&repeat==false)){
         aux=Acao_Skip(&Botao,render,aux,Tamanho,local);
         acabou =false;

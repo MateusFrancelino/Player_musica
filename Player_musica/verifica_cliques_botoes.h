@@ -43,26 +43,21 @@ int Musica_aleatoria(int aux,int Tamanho, string* local){
 
 
 void Alterna_Botao(botoes *Botao,SDL_Renderer*render){
-    if(!random){
+    if(!random)
         SDL_RenderCopy(render,Botao->Brandom.textura_normal,&Botao->Brandom.origem,&Botao->Brandom.destino);
-       }
-    else
-       {
-        SDL_RenderCopy(render,Botao->Brandom.textura_clique,&Botao->Brandom.origem,&Botao->Brandom.destino);
-}
-     if(!repeat){
 
+    else
+        SDL_RenderCopy(render,Botao->Brandom.textura_clique,&Botao->Brandom.origem,&Botao->Brandom.destino);
+
+     if(!repeat)
          SDL_RenderCopy(render,Botao->Brepeat.textura_normal,&Botao->Brepeat.origem,&Botao->Brepeat.destino);
 
-     }
-     else{
-
+     else
          SDL_RenderCopy(render,Botao->Brepeat.textura_clique,&Botao->Brepeat.origem,&Botao->Brepeat.destino);
-
-     }
 
      if(tocando)
          SDL_RenderCopy(render,Botao->Bpause.textura_normal,&Botao->Bpause.origem,&Botao->Bpause.destino);
+
      else
          SDL_RenderCopy(render,Botao->Bplay.textura_normal,&Botao->Bplay.origem,&Botao->Bplay.destino);
 
@@ -74,19 +69,14 @@ void Acao_Random(botoes *Botao,SDL_Renderer *render,int *aux,int Tamanho,string*
     Botao->Brandom.destino.h=40;
     Botao->Brandom.destino.w=40;
      if(random){
-
          Alterna_Botao(Botao,render);
-
             random=false;
         }
      else
         {
-
          Alterna_Botao(Botao,render);
-
             *aux=Random(Tamanho);
          cout<<"aux random"<<endl<<*aux<<endl<<endl<<endl;
-
             musica= Mix_LoadMUS(local[*aux].c_str());
             Mix_PlayMusic(musica,0);
             random=true;
@@ -117,11 +107,9 @@ void Acao_Repeat(botoes *Botao,SDL_Renderer *render,int *aux,string* local){
         Mix_PlayMusic(musica,-1);
         repeat=true;
     }
-
 }
 
 int Acao_Skip(botoes *Botao,SDL_Renderer *render,int aux,int Tamanho,string* local){
-
     aux++;
     cout<<endl<<"aux:"<<aux;
     if(aux>=Tamanho){
@@ -136,8 +124,6 @@ int Acao_Skip(botoes *Botao,SDL_Renderer *render,int aux,int Tamanho,string* loc
     musica= Mix_LoadMUS(local[aux].c_str());
     Mix_PlayMusic(musica,0);
 return aux;
-
-
 }
 
 int Acao_Return(botoes *Botao,SDL_Renderer *render,int aux,int Tamanho,string* local){
@@ -161,24 +147,12 @@ void Acao_Pause(){
     if(tocando==false){
         Mix_ResumeMusic();
         tocando=true;
-
     }
-
     else{
         Mix_PauseMusic();
         tocando=false;
-
     }
-
-
 }
-
-
-
-
-
-
-
 
 
 int Verifica(botoes* Botao,int x,int y,string* local,int aux,SDL_Renderer* render, int Tamanho){
