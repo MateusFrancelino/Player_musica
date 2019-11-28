@@ -8,15 +8,15 @@ using namespace std;
 
 Mix_Music *musica;
 bool tocando = true;
-bool acabou =false;
-int repeat=2;
+bool acabou = false;
+bool repeat = false;
 
-int Verifica(botoes* Botao,int x,int y,string* local,int aux,SDL_Renderer* render){
+int Verifica(botoes* Botao,int x,int y,string* local,int aux,SDL_Renderer* render,int Tamanho){
     cout <<"X:" <<x<<" Y:" << y << endl;
     if(x>=Botao->Bskip.destino.x&&x<=Botao->Bskip.destino.x+Botao->Bskip.destino.w&&y>=Botao->Bskip.destino.y&&y<=Botao->Bskip.destino.y+Botao->Bskip.destino.h){
             aux++;
             cout<<endl<<"aux:"<<aux;
-            if(aux>12){
+            if(aux>=Tamanho){
             aux=0;
             }
             //cout<<local[aux]<<endl;
@@ -49,7 +49,7 @@ int Verifica(botoes* Botao,int x,int y,string* local,int aux,SDL_Renderer* rende
             aux--;
             cout<<endl<<"aux:"<<aux;
             if(aux<0){
-            aux=11;
+            aux=Tamanho-1;
             }
             //cout<<local[aux]<<endl;
             Botao->Breturn.destino.x=180;
@@ -64,8 +64,8 @@ int Verifica(botoes* Botao,int x,int y,string* local,int aux,SDL_Renderer* rende
     }
     else if(x>=Botao->Brepeat.destino.x&&x<=Botao->Brepeat.destino.x+Botao->Brepeat.destino.w&&y>=Botao->Brepeat.destino.y&&y<=Botao->Brepeat.destino.y+Botao->Brepeat.destino.h){
 
-        repeat++;
-        if(repeat%2==0)
+
+        if(repeat)
         {
             Botao->Brepeat.destino.x=290;
             Botao->Brepeat.destino.y=520;
@@ -74,6 +74,7 @@ int Verifica(botoes* Botao,int x,int y,string* local,int aux,SDL_Renderer* rende
             Botao->Brepeat.textura=CarregaImagem("repeat.bmp",render);
             musica= Mix_LoadMUS(local[aux].c_str());
             Mix_PlayMusic(musica,0);
+            repeat=false;
         }
         else
         {
@@ -84,6 +85,7 @@ int Verifica(botoes* Botao,int x,int y,string* local,int aux,SDL_Renderer* rende
             Botao->Brepeat.textura=CarregaImagem("repeat_clique.bmp",render);
             musica= Mix_LoadMUS(local[aux].c_str());
             Mix_PlayMusic(musica,-1);
+            repeat=true;
         }
         return aux;
 }
