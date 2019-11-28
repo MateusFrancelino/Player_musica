@@ -108,7 +108,7 @@ int Verifica(botoes* Botao,int x,int y,string* local,int aux,SDL_Renderer* rende
 
          if(random){
                 Botao->Brandom.destino.x=480;
-                Botao->Brandom.destino.y=480;
+                Botao->Brandom.destino.y=520;
                 Botao->Brandom.destino.h=40;
                 Botao->Brandom.destino.w=40;
                 Botao->Brandom.textura=CarregaImagem("random.bmp",render);
@@ -117,7 +117,7 @@ int Verifica(botoes* Botao,int x,int y,string* local,int aux,SDL_Renderer* rende
          else
             {
                 Botao->Brandom.destino.x=480;
-                Botao->Brandom.destino.y=480;
+                Botao->Brandom.destino.y=520;
                 Botao->Brandom.destino.h=40;
                 Botao->Brandom.destino.w=40;
                 Botao->Brandom.textura=CarregaImagem("random_clique.bmp",render);
