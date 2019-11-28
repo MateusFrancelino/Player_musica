@@ -1,5 +1,5 @@
-
 #include "declara_botao.h"
+
 using namespace std;
 #undef main
 
@@ -8,31 +8,28 @@ using namespace std;
 Mix_Music *musica;
 bool tocando = true;
 bool acabou =false;
-
+int repeat=2;
 
 int Tamanho_array(){
-
-ifstream ler;
-string linha;
-int i=0;
-int g=0;
-ler.open("lista_musica.txt");
-if(ler.is_open()){
-    while(getline(ler,linha)){
-        if(g>2){
-           i++;
-           }
-        else{g++;}
-    }
-}cout<<endl<<endl<<endl<<endl<<endl;
-ler.close();
-return i;
-
-
+    ifstream ler;
+    string linha;
+    int i=0;
+    int g=0;
+    ler.open("lista_musica.txt");
+    if(ler.is_open()){
+        while(getline(ler,linha)){
+            if(g>2){
+               i++;
+               }
+            else{g++;}
+        }
+    }cout<<endl<<endl<<endl<<endl<<endl;
+    ler.close();
+    return i;
+    
+    
+    
 }
-
-
-
 
 
 
@@ -57,23 +54,23 @@ void ler_playlist(string *local){
 
 
 
-int Verifica(botoes* Botao,int x,int y,string* local,int aux,int Tamanho){
+int Verifica(botoes* Botao,int x,int y,string* local,int aux,SDL_Renderer* render){
     cout <<"X:" <<x<<" Y:" << y << endl;
     if(x>=Botao->Bskip.destino.x&&x<=Botao->Bskip.destino.x+Botao->Bskip.destino.w&&y>=Botao->Bskip.destino.y&&y<=Botao->Bskip.destino.y+Botao->Bskip.destino.h){
-        aux++;
-        cout<<endl<<"aux:"<<aux;
-        if(aux>=Tamanho){
+            aux++;
+            cout<<endl<<"aux:"<<aux;
+            if(aux>12){
             aux=0;
-        }
-
-        Botao->Bskip.destino.x=580;
-        Botao->Bskip.destino.y=460;
-        Botao->Bskip.destino.h=40;
-        Botao->Bskip.destino.w=40;
-        Mix_FreeMusic(musica);
-        musica= Mix_LoadMUS(local[aux].c_str());
-        Mix_PlayMusic(musica,0);
-        return aux;
+            }
+            //cout<<local[aux]<<endl;
+            Botao->Bskip.destino.x=580;
+            Botao->Bskip.destino.y=460;
+            Botao->Bskip.destino.h=40;
+            Botao->Bskip.destino.w=40;
+            Mix_FreeMusic(musica);
+            musica= Mix_LoadMUS(local[aux].c_str());
+            Mix_PlayMusic(musica,0);
+            return aux;
     }
     else if (x>=Botao->Bpause.destino.x&&x<=Botao->Bpause.destino.x+Botao->Bpause.destino.w&&y>=Botao->Bpause.destino.y&&y<=Botao->Bpause.destino.y+Botao->Bpause.destino.h){
 
@@ -92,25 +89,53 @@ int Verifica(botoes* Botao,int x,int y,string* local,int aux,int Tamanho){
 
     }
     else if(x>=Botao->Breturn.destino.x&&x<=Botao->Breturn.destino.x+Botao->Breturn.destino.w&&y>=Botao->Breturn.destino.y&&y<=Botao->Breturn.destino.y+Botao->Breturn.destino.h){
-        aux--;
-        cout<<endl<<"aux:"<<aux;
-        if(aux<0){
-            aux=Tamanho-1;
-        }
-        //cout<<local[aux]<<endl;
-        Botao->Breturn.destino.x=180;
-        Botao->Breturn.destino.y=460;
-        Botao->Breturn.destino.h=40;
-        Botao->Breturn.destino.w=40;
-        Mix_FreeMusic(musica);
-        musica= Mix_LoadMUS(local[aux].c_str());
-        Mix_PlayMusic(musica,0);
-        return aux;
+            aux--;
+            cout<<endl<<"aux:"<<aux;
+            if(aux<0){
+            aux=11;
+            }
+            //cout<<local[aux]<<endl;
+            Botao->Breturn.destino.x=180;
+            Botao->Breturn.destino.y=460;
+            Botao->Breturn.destino.h=40;
+            Botao->Breturn.destino.w=40;
+            Mix_FreeMusic(musica);
+            musica= Mix_LoadMUS(local[aux].c_str());
+            Mix_PlayMusic(musica,0);
+            return aux;
 
     }
+    else if(x>=Botao->Brepeat.destino.x&&x<=Botao->Brepeat.destino.x+Botao->Brepeat.destino.w&&y>=Botao->Brepeat.destino.y&&y<=Botao->Brepeat.destino.y+Botao->Brepeat.destino.h){
 
-
-
+        repeat++;
+        if(repeat%2==0)
+        {
+            Botao->Brepeat.destino.x=290;
+            Botao->Brepeat.destino.y=520;
+            Botao->Brepeat.destino.h=40;
+            Botao->Brepeat.destino.w=40;
+            Botao->Brepeat.textura=CarregaImagem("repeat.bmp",render);
+            Mix_PlayMusic(musica,0);
+        }
+        else
+        {
+            Botao->Brepeat.destino.x=290;
+            Botao->Brepeat.destino.y=520;
+            Botao->Brepeat.destino.h=40;
+            Botao->Brepeat.destino.w=40;
+            Botao->Brepeat.textura=CarregaImagem("repeat_clique.bmp",render);
+            //musica= Mix_LoadMUS(local[aux].c_str());
+            Mix_PlayMusic(musica,-1);
+        }
+        return aux;
+}
+    else if(x>=Botao->Brandom.destino.x&&x<=Botao->Brandom.destino.x+Botao->Brandom.destino.w&&y>=Botao->Brandom.destino.y&&y<=Botao->Brandom.destino.y+Botao->Brandom.destino.h){
+            Botao->Brandom.destino.x=480;
+            Botao->Brandom.destino.y=480;
+            Botao->Brandom.destino.h=40;
+            Botao->Brandom.destino.w=40;
+            Botao->Brandom.textura=CarregaImagem("random_clique.bmp",render);
+    }
 
 }
 
@@ -199,9 +224,12 @@ Declarar_botoes(&Botao,render);
 
 
 
-
-int Tamanho=Tamanho_array();
-string* local=new string[Tamanho];
+string local[11];
+/*local[0]="C:/teste/athe-muffin-song-asdfmovie-feat-schmoyoho.mp3";
+local[1]="C:/teste/camila-cabello-living-proof-live-from-the-2019-amas.mp3";
+local[2]="C:/teste/i-like-trains-asdfmovie-song.mp3";
+local[3]="C:/teste/shawn-mendes-camila-cabello-senorita-live-from-the-amas-2019.mp3";
+// char *caminho="musica.mp3";*/
 ler_playlist(local);
 
 musica= Mix_LoadMUS(local[0].c_str());
@@ -224,6 +252,8 @@ while(1){
 
     SDL_RenderCopy(render,Botao.Bskip.textura,&Botao.Bskip.origem,&Botao.Bskip.destino);
     SDL_RenderCopy(render,Botao.Breturn.textura,&Botao.Breturn.origem,&Botao.Breturn.destino);
+    SDL_RenderCopy(render,Botao.Brepeat.textura,&Botao.Brepeat.origem,&Botao.Brepeat.destino);
+    SDL_RenderCopy(render,Botao.Brandom.textura,&Botao.Brandom.origem,&Botao.Brandom.destino);
     SDL_RenderPresent(render);
 
 
@@ -238,6 +268,16 @@ while(1){
 
 
     case SDL_MOUSEBUTTONUP:
+        Botao.Brandom.destino.x=470;
+        Botao.Brandom.destino.y=500;
+        Botao.Brandom.destino.h=60;
+        Botao.Brandom.destino.w=60;
+
+        Botao.Brepeat.destino.x=270;
+        Botao.Brepeat.destino.y=500;
+        Botao.Brepeat.destino.h=60;
+        Botao.Brepeat.destino.w=60;
+
         Botao.Bskip.destino.x=560;
         Botao.Bskip.destino.y=440;
         Botao.Bskip.destino.h=80;
@@ -252,7 +292,7 @@ while(1){
 
                       SDL_GetMouseState(&x,&y);
 
-                      aux=Verifica(&Botao,x,y,local,aux,Tamanho);
+                      aux=Verifica(&Botao,x,y,local,aux,render);
                       cout<<"retornando aux: "<<aux;
                       cout <<"X:" <<x<<" Y:" << y << endl;
   /*                    if(x>=Botao.Bskip.destino.x&&x<=Botao.Bskip.destino.x+Botao.Bskip.destino.w&&y>=Botao.Bskip.destino.y&&y<=Botao.Bskip.destino.y+Botao.Bskip.destino.h){
@@ -278,7 +318,7 @@ Mix_HookMusicFinished(musicFinished);
 if(acabou==true||Mix_PlayingMusic()==0){
     aux++;
     cout<<endl<<"aux:"<<aux;
-    if(aux>=Tamanho){
+    if(aux>12){
         aux=0;
     }
 
