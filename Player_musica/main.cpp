@@ -1,9 +1,4 @@
-#include <iostream>
-#include <SDL2/SDL.h>
-#include <SDL2/SDL_mixer.h>
-#include <windows.h>
-#include <dirent.h>
-#include <fstream>
+
 #include "declara_botao.h"
 using namespace std;
 #undef main
@@ -13,6 +8,32 @@ using namespace std;
 Mix_Music *musica;
 bool tocando = true;
 bool acabou =false;
+
+
+int Tamanho_array(){
+
+ifstream ler;
+string linha;
+int i=0;
+int g=0;
+ler.open("lista_musica.txt");
+if(ler.is_open()){
+    while(getline(ler,linha)){
+        if(g>2){
+           i++;
+           }
+        else{g++;}
+    }
+}cout<<endl<<endl<<endl<<endl<<endl;
+ler.close();
+return i;
+
+
+}
+
+
+
+
 
 
 void ler_playlist(string *local){
@@ -36,15 +57,15 @@ void ler_playlist(string *local){
 
 
 
-int Verifica(botoes* Botao,int x,int y,string* local,int aux){
+int Verifica(botoes* Botao,int x,int y,string* local,int aux,int Tamanho){
     cout <<"X:" <<x<<" Y:" << y << endl;
     if(x>=Botao->Bskip.destino.x&&x<=Botao->Bskip.destino.x+Botao->Bskip.destino.w&&y>=Botao->Bskip.destino.y&&y<=Botao->Bskip.destino.y+Botao->Bskip.destino.h){
         aux++;
         cout<<endl<<"aux:"<<aux;
-        if(aux>12){
+        if(aux>=Tamanho){
             aux=0;
         }
-        //cout<<local[aux]<<endl;
+
         Botao->Bskip.destino.x=580;
         Botao->Bskip.destino.y=460;
         Botao->Bskip.destino.h=40;
@@ -74,7 +95,7 @@ int Verifica(botoes* Botao,int x,int y,string* local,int aux){
         aux--;
         cout<<endl<<"aux:"<<aux;
         if(aux<0){
-            aux=11;
+            aux=Tamanho-1;
         }
         //cout<<local[aux]<<endl;
         Botao->Breturn.destino.x=180;
@@ -178,12 +199,9 @@ Declarar_botoes(&Botao,render);
 
 
 
-string local[11];
-/*local[0]="C:/teste/athe-muffin-song-asdfmovie-feat-schmoyoho.mp3";
-local[1]="C:/teste/camila-cabello-living-proof-live-from-the-2019-amas.mp3";
-local[2]="C:/teste/i-like-trains-asdfmovie-song.mp3";
-local[3]="C:/teste/shawn-mendes-camila-cabello-senorita-live-from-the-amas-2019.mp3";
-// char *caminho="musica.mp3";*/
+
+int Tamanho=Tamanho_array();
+string* local=new string[Tamanho];
 ler_playlist(local);
 
 musica= Mix_LoadMUS(local[0].c_str());
@@ -234,7 +252,7 @@ while(1){
 
                       SDL_GetMouseState(&x,&y);
 
-                      aux=Verifica(&Botao,x,y,local,aux);
+                      aux=Verifica(&Botao,x,y,local,aux,Tamanho);
                       cout<<"retornando aux: "<<aux;
                       cout <<"X:" <<x<<" Y:" << y << endl;
   /*                    if(x>=Botao.Bskip.destino.x&&x<=Botao.Bskip.destino.x+Botao.Bskip.destino.w&&y>=Botao.Bskip.destino.y&&y<=Botao.Bskip.destino.y+Botao.Bskip.destino.h){
@@ -260,7 +278,7 @@ Mix_HookMusicFinished(musicFinished);
 if(acabou==true||Mix_PlayingMusic()==0){
     aux++;
     cout<<endl<<"aux:"<<aux;
-    if(aux>12){
+    if(aux>=Tamanho){
         aux=0;
     }
 
