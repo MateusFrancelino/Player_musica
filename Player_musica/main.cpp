@@ -7,11 +7,11 @@ using namespace std;
 
 
 
-void musicFinished()
+/*void musicFinished(Musica *musica)
 {
 printf("Music stopped.\n");
-acabou =true;
-}
+musica->acabou =true;
+}*/
 
 
 
@@ -22,6 +22,7 @@ int main()
 botoes Botao;
 int x,y;
 
+Musica musica;
 
 
 
@@ -80,12 +81,12 @@ Declarar_botoes(&Botao,render);
  ler_playlist(local);
 
 
-musica= Mix_LoadMUS(local[0].c_str());
+musica.audio= Mix_LoadMUS(local[0].c_str());
 
  closedir(dir);
 int aux=0;
 //Mix_PlayChannel(-1,som,0);
-Mix_PlayMusic(musica,0);
+Mix_PlayMusic(musica.audio,0);
 
 while(1){
     //cout<<Mix_PlayingMusic()<<endl;
@@ -95,7 +96,7 @@ while(1){
 
     SDL_RenderCopy(render,Botao.Bskip.textura_normal,&Botao.Bskip.origem,&Botao.Bskip.destino);
     SDL_RenderCopy(render,Botao.Breturn.textura_normal,&Botao.Breturn.origem,&Botao.Breturn.destino);
-    Alterna_Botao(&Botao,render);
+    Alterna_Botao(&Botao,render,&musica);
 
 
 
@@ -135,18 +136,18 @@ while(1){
 
                       SDL_GetMouseState(&x,&y);
 
-                      aux=Verifica(&Botao,x,y,local,aux,render,Tamanho);
+                      aux=Verifica(&Botao,x,y,local,aux,render,Tamanho,&musica);
                       cout<<"retornando aux verifica: "<<aux<<endl;
 
                         break;
                         }
                 }
 
-    Mix_HookMusicFinished(musicFinished);
+    //Mix_HookMusicFinished(musicFinished);
 
-    if((acabou==true&&repeat==false)||(Mix_PlayingMusic()==0&&repeat==false)){
-        aux=Acao_Skip(&Botao,render,aux,Tamanho,local);
-        acabou =false;
+    if((musica.acabou==true&&musica.repeat==false)||(Mix_PlayingMusic()==0&&musica.repeat==false)){
+        aux=Acao_Skip(&Botao,render,aux,Tamanho,local,&musica);
+        musica.acabou =false;
     }
 
 
@@ -164,6 +165,6 @@ while(1){
 
     Mix_CloseAudio();
     //Mix_FreeChunk(som);
-    Mix_FreeMusic(musica);
+    Mix_FreeMusic(musica.audio);
 //https://www.onlinewebfonts.com/icon/packs_1469
 }
