@@ -31,8 +31,6 @@ int x,y;
  SDL_Renderer* render= SDL_CreateRenderer(janela,-1,0);
  SDL_SetRenderDrawColor(render,255,255,255,0);
 
- SDL_Rect origem;
- SDL_Rect destino;
 
 Declarar_botoes(&Botao,render);
 
@@ -88,7 +86,6 @@ musica= Mix_LoadMUS(local[0].c_str());
 int aux=0;
 //Mix_PlayChannel(-1,som,0);
 Mix_PlayMusic(musica,0);
-int z=0;
 
 while(1){
     //cout<<Mix_PlayingMusic()<<endl;
