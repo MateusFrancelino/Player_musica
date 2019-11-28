@@ -6,6 +6,7 @@ using namespace std;
 #undef main
 
 
+
 void musicFinished()
 {
 printf("Music stopped.\n");
@@ -142,32 +143,45 @@ while(1){
                       SDL_GetMouseState(&x,&y);
 
                       aux=Verifica(&Botao,x,y,local,aux,render,Tamanho);
-                      cout<<"retornando aux: "<<aux;
-                      cout <<"X:" <<x<<" Y:" << y << endl;
+                      cout<<"retornando aux verifica: "<<aux<<endl;
 
+                        break;
+                        }
+                }
 
+    Mix_HookMusicFinished(musicFinished);
 
-                    break;
+    if((acabou==true&&random==true)||(Mix_PlayingMusic()==0&&random==true)){
 
+        aux=Random(Tamanho);
+
+        Mix_FreeMusic(musica);
+        musica= Mix_LoadMUS(local[aux].c_str());
+        Mix_PlayMusic(musica,0);
+        acabou =false;
+
+        cout << "aux no if de random: "<<aux<<endl;
+    }
+    else if((acabou==true&&repeat==false)||(Mix_PlayingMusic()==0&&repeat==false)){
+        aux++;
+        cout<<endl<<"aux:"<<aux;
+        if(aux>=Tamanho){
+            aux=0;
         }
 
-
-}
-Mix_HookMusicFinished(musicFinished);
-if((acabou==true&&repeat==false)||(Mix_PlayingMusic()==0&&repeat==false)){
-    aux++;
-    cout<<endl<<"aux:"<<aux;
-    if(aux>=Tamanho){
-        aux=0;
+        Mix_FreeMusic(musica);
+        musica= Mix_LoadMUS(local[aux].c_str());
+        Mix_PlayMusic(musica,0);
+        acabou =false;
     }
 
-    Mix_FreeMusic(musica);
-    musica= Mix_LoadMUS(local[aux].c_str());
-    Mix_PlayMusic(musica,0);
-    acabou =false;
-}
+    }
 
-}
+
+
+
+
+
 
 
     Mix_CloseAudio();
