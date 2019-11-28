@@ -2,26 +2,8 @@
 #include "verifica_cliques_botoes.h"
 #include "manipula_arquivo.h"
 
-#include <cstdlib>
-#include <ctime>
-
 using namespace std;
 #undef main
-
-int Random(int Tamanho){
-    srand((unsigned)time(0));
-    int x;
-    x=(rand()%Tamanho);
-    cout<<x<<endl;
-    return x;
-}
-
-
-
-
-
-
-
 
 
 void musicFinished()
@@ -36,9 +18,6 @@ acabou =true;
 
 int main()
 {
-
-
-
 botoes Botao;
 int x,y;
 
@@ -97,20 +76,21 @@ Declarar_botoes(&Botao,render);
 
  }
 
-int Tamanho = Tamanho_array();
-string *local= new string [Tamanho];
-ler_playlist(local);
+ int Tamanho = Tamanho_array();
+ string *local= new string [Tamanho];
+ ler_playlist(local);
 
 
 musica= Mix_LoadMUS(local[0].c_str());
 
  closedir(dir);
 int aux=0;
+//Mix_PlayChannel(-1,som,0);
 Mix_PlayMusic(musica,0);
 int z=0;
 
 while(1){
-    cout<<Mix_PlayingMusic()<<endl;
+    //cout<<Mix_PlayingMusic()<<endl;
 
     SDL_RenderClear(render);
     if(tocando==true)
@@ -164,6 +144,9 @@ while(1){
                       aux=Verifica(&Botao,x,y,local,aux,render,Tamanho);
                       cout<<"retornando aux: "<<aux;
                       cout <<"X:" <<x<<" Y:" << y << endl;
+
+
+
                     break;
 
         }
@@ -187,8 +170,8 @@ if((acabou==true&&repeat==false)||(Mix_PlayingMusic()==0&&repeat==false)){
 }
 
 
- Mix_CloseAudio();
- //Mix_FreeChunk(som);
-Mix_FreeMusic(musica);
+    Mix_CloseAudio();
+    //Mix_FreeChunk(som);
+    Mix_FreeMusic(musica);
 //https://www.onlinewebfonts.com/icon/packs_1469
 }
