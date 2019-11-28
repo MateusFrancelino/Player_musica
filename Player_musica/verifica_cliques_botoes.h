@@ -6,10 +6,11 @@
 #include <SDL2/SDL_mixer.h>
 using namespace std;
 
-Mix_Music *musica;
-bool tocando = true;
-bool acabou = false;
-bool repeat = false;
+static Mix_Music *musica;
+static bool tocando = true;
+static bool acabou = false;
+static bool repeat = false;
+static bool random = false;
 
 int Verifica(botoes* Botao,int x,int y,string* local,int aux,SDL_Renderer* render,int Tamanho){
     cout <<"X:" <<x<<" Y:" << y << endl;
@@ -31,7 +32,7 @@ int Verifica(botoes* Botao,int x,int y,string* local,int aux,SDL_Renderer* rende
     }
     else if (x>=Botao->Bpause.destino.x&&x<=Botao->Bpause.destino.x+Botao->Bpause.destino.w&&y>=Botao->Bpause.destino.y&&y<=Botao->Bpause.destino.y+Botao->Bpause.destino.h){
 
-        if(tocando==false){
+        if(!tocando){
             Mix_ResumeMusic();
             tocando=true;
 
@@ -95,6 +96,12 @@ int Verifica(botoes* Botao,int x,int y,string* local,int aux,SDL_Renderer* rende
             Botao->Brandom.destino.h=40;
             Botao->Brandom.destino.w=40;
             Botao->Brandom.textura=CarregaImagem("random_clique.bmp",render);
+            if (random){
+
+            }
+            else{
+
+            }
     }
 
 
