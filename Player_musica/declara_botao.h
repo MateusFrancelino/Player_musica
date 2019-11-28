@@ -1,6 +1,11 @@
 #ifndef DECLARA_BOTAO_H
 #define DECLARA_BOTAO_H
 #include <SDL2/SDL.h>
+#include <SDL2/SDL_mixer.h>
+#include <iostream>
+#include <windows.h>
+#include <dirent.h>
+#include <fstream>
 using namespace std;
 
 
