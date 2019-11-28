@@ -113,3 +113,4 @@ void Declarar_botoes(botoes*Botao,SDL_Renderer*render){
 
 }
 #endif // DECLARA_BOTAO_H
+//
