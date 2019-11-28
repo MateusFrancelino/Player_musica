@@ -118,21 +118,15 @@ Declarar_botoes(&Botao,render);
 
  }
 
-
-
-string local[11];
-/*local[0]="C:/teste/athe-muffin-song-asdfmovie-feat-schmoyoho.mp3";
-local[1]="C:/teste/camila-cabello-living-proof-live-from-the-2019-amas.mp3";
-local[2]="C:/teste/i-like-trains-asdfmovie-song.mp3";
-local[3]="C:/teste/shawn-mendes-camila-cabello-senorita-live-from-the-amas-2019.mp3";
-// char *caminho="musica.mp3";*/
+int Tamanho = Tamanho_array();
+string *local= new string [Tamanho];
 ler_playlist(local);
+
 
 musica= Mix_LoadMUS(local[0].c_str());
 
  closedir(dir);
 int aux=0;
-//Mix_PlayChannel(-1,som,0);
 Mix_PlayMusic(musica,0);
 int z=0;
 
@@ -188,22 +182,9 @@ while(1){
 
                       SDL_GetMouseState(&x,&y);
 
-                      aux=Verifica(&Botao,x,y,local,aux,render);
+                      aux=Verifica(&Botao,x,y,local,aux,render,Tamanho);
                       cout<<"retornando aux: "<<aux;
                       cout <<"X:" <<x<<" Y:" << y << endl;
-  /*                    if(x>=Botao.Bskip.destino.x&&x<=Botao.Bskip.destino.x+Botao.Bskip.destino.w&&y>=Botao.Bskip.destino.y&&y<=Botao.Bskip.destino.y+Botao.Bskip.destino.h){
-                          aux++;
-                          if(aux>12){
-                              aux=0;
-                          }
-                          //cout<<local[aux]<<endl;
-                          musica= Mix_LoadMUS(local[aux].c_str());
-                          Mix_PlayMusic(musica,0);
-                      }
-*/
-
-
-
                     break;
 
         }
@@ -211,10 +192,10 @@ while(1){
 
 }
 Mix_HookMusicFinished(musicFinished);
-if(acabou==true||Mix_PlayingMusic()==0){
+if((acabou==true&&repeat==false)||(Mix_PlayingMusic()==0&&repeat==false)){
     aux++;
     cout<<endl<<"aux:"<<aux;
-    if(aux>12){
+    if(aux>=Tamanho){
         aux=0;
     }
 
