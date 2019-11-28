@@ -77,7 +77,55 @@ void Alterna_Botao(botoes *Botao,SDL_Renderer*render){
 
 }
 
+void Acao_Random(botoes *Botao,SDL_Renderer *render,int *aux,int Tamanho,string* local){
+    Botao->Brandom.destino.x=480;
+    Botao->Brandom.destino.y=520;
+    Botao->Brandom.destino.h=40;
+    Botao->Brandom.destino.w=40;
+     if(random){
 
+         Alterna_Botao(Botao,render);
+
+            random=false;
+        }
+     else
+        {
+
+         Alterna_Botao(Botao,render);
+
+            *aux=Random(Tamanho);
+         cout<<"aux random"<<endl<<*aux<<endl<<endl<<endl;
+
+            musica= Mix_LoadMUS(local[*aux].c_str());
+            Mix_PlayMusic(musica,0);
+            random=true;
+        }
+}
+
+
+void Acao_Repeat(botoes *Botao,SDL_Renderer *render,int *aux,string* local){
+
+    Botao->Brepeat.destino.x=290;
+    Botao->Brepeat.destino.y=520;
+    Botao->Brepeat.destino.h=40;
+    Botao->Brepeat.destino.w=40;
+    if(repeat)
+    {
+        Alterna_Botao(Botao,render);
+        musica= Mix_LoadMUS(local[*aux].c_str());
+        Mix_PlayMusic(musica,0);
+        repeat=false;
+    }
+    else
+    {
+        Alterna_Botao(Botao,render);
+
+        musica= Mix_LoadMUS(local[*aux].c_str());
+        Mix_PlayMusic(musica,-1);
+        repeat=true;
+    }
+
+}
 
 
 
@@ -96,54 +144,16 @@ int Verifica(botoes* Botao,int x,int y,string* local,int aux,SDL_Renderer* rende
             aux=Musica_aleatoria(aux,Tamanho,local);
 
         else if(x>=Botao->Brandom.destino.x&&x<=Botao->Brandom.destino.x+Botao->Brandom.destino.w&&y>=Botao->Brandom.destino.y&&y<=Botao->Brandom.destino.y+Botao->Brandom.destino.h){
-            Botao->Brandom.destino.x=480;
-            Botao->Brandom.destino.y=520;
-            Botao->Brandom.destino.h=40;
-            Botao->Brandom.destino.w=40;
-             if(random){
-
-                 Alterna_Botao(Botao,render);
-
-                    random=false;
-                }
-             else
-                {
-
-                 Alterna_Botao(Botao,render);
-
-                    aux=Random(Tamanho);
-
-                    musica= Mix_LoadMUS(local[aux].c_str());
-                    Mix_PlayMusic(musica,0);
-                    random=true;
-                }
-            return aux;
+                 Acao_Random(Botao,render,&aux,Tamanho,local);
 
         }
 
         else if(x>=Botao->Brepeat.destino.x&&x<=Botao->Brepeat.destino.x+Botao->Brepeat.destino.w&&y>=Botao->Brepeat.destino.y&&y<=Botao->Brepeat.destino.y+Botao->Brepeat.destino.h){
+                Acao_Repeat(Botao,render,&aux,local);
 
-            Botao->Brepeat.destino.x=290;
-            Botao->Brepeat.destino.y=520;
-            Botao->Brepeat.destino.h=40;
-            Botao->Brepeat.destino.w=40;
-            if(repeat)
-            {
-                Alterna_Botao(Botao,render);
-                musica= Mix_LoadMUS(local[aux].c_str());
-                Mix_PlayMusic(musica,0);
-                repeat=false;
-            }
-            else
-            {
-                Alterna_Botao(Botao,render);
-
-                musica= Mix_LoadMUS(local[aux].c_str());
-                Mix_PlayMusic(musica,-1);
-                repeat=true;
-            }
-            return aux;
     }
+
+        return aux;
 
 
 
@@ -205,53 +215,17 @@ int Verifica(botoes* Botao,int x,int y,string* local,int aux,SDL_Renderer* rende
     }
     else if(x>=Botao->Brepeat.destino.x&&x<=Botao->Brepeat.destino.x+Botao->Brepeat.destino.w&&y>=Botao->Brepeat.destino.y&&y<=Botao->Brepeat.destino.y+Botao->Brepeat.destino.h){
 
-        Botao->Brepeat.destino.x=290;
-        Botao->Brepeat.destino.y=520;
-        Botao->Brepeat.destino.h=40;
-        Botao->Brepeat.destino.w=40;
-        if(repeat)
-        {
-            Alterna_Botao(Botao,render);
-            musica= Mix_LoadMUS(local[aux].c_str());
-            Mix_PlayMusic(musica,0);
-            repeat=false;
-        }
-        else
-        {
-            Alterna_Botao(Botao,render);
+        Acao_Repeat(Botao,render,&aux,local);
 
-            musica= Mix_LoadMUS(local[aux].c_str());
-            Mix_PlayMusic(musica,-1);
-            repeat=true;
-        }
-        return aux;
 }
-    else if(x>=Botao->Brandom.destino.x&&x<=Botao->Brandom.destino.x+Botao->Brandom.destino.w&&y>=Botao->Brandom.destino.y&&y<=Botao->Brandom.destino.y+Botao->Brandom.destino.h){
-        Botao->Brandom.destino.x=480;
-        Botao->Brandom.destino.y=520;
-        Botao->Brandom.destino.h=40;
-        Botao->Brandom.destino.w=40;
-         if(random){
-
-             Alterna_Botao(Botao,render);
-
-                random=false;
-            }
-         else
-            {
-
-             Alterna_Botao(Botao,render);
-
-                aux=Random(Tamanho);
-
-                musica= Mix_LoadMUS(local[aux].c_str());
-                Mix_PlayMusic(musica,0);
-                random=true;
-            }
-        return aux;
+   else if(x>=Botao->Brandom.destino.x&&x<=Botao->Brandom.destino.x+Botao->Brandom.destino.w&&y>=Botao->Brandom.destino.y&&y<=Botao->Brandom.destino.y+Botao->Brandom.destino.h){
+            Acao_Random(Botao,render,&aux,Tamanho,local);
 
     }
 
+
+
+    return aux;
 
 }
 }
