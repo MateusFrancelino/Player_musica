@@ -128,6 +128,7 @@ int Verifica(botoes* Botao,int x,int y,string* local,int aux,SDL_Renderer* rende
                 Mix_PlayMusic(musica,0);
                 random=true;
             }
+        return aux;
 
     }
 
