@@ -45,6 +45,8 @@ int Verifica(botoes* Botao,int x,int y,string* local,int aux){
             aux=0;
         }
         //cout<<local[aux]<<endl;
+        Botao->Bskip.destino.x=580;
+        Botao->Bskip.destino.y=460;
         Botao->Bskip.destino.h=40;
         Botao->Bskip.destino.w=40;
         Mix_FreeMusic(musica);
@@ -75,6 +77,8 @@ int Verifica(botoes* Botao,int x,int y,string* local,int aux){
             aux=11;
         }
         //cout<<local[aux]<<endl;
+        Botao->Breturn.destino.x=180;
+        Botao->Breturn.destino.y=460;
         Botao->Breturn.destino.h=40;
         Botao->Breturn.destino.w=40;
         Mix_FreeMusic(musica);
@@ -216,8 +220,13 @@ while(1){
 
 
     case SDL_MOUSEBUTTONUP:
+        Botao.Bskip.destino.x=560;
+        Botao.Bskip.destino.y=440;
         Botao.Bskip.destino.h=80;
         Botao.Bskip.destino.w=80;
+
+        Botao.Breturn.destino.x=160;
+        Botao.Breturn.destino.y=440;
         Botao.Breturn.destino.h=80;
         Botao.Breturn.destino.w=80;
         break;
@@ -269,4 +278,3 @@ if(acabou==true||Mix_PlayingMusic()==0){
 Mix_FreeMusic(musica);
 //https://www.onlinewebfonts.com/icon/packs_1469
 }
-//
