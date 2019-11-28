@@ -18,15 +18,6 @@ static bool random = false;
 
 
 
-
-
-
-
-
-
-
-
-
 int Random(int Tamanho){
     srand((unsigned)time(0));
     int x;
@@ -103,6 +94,8 @@ void Acao_Random(botoes *Botao,SDL_Renderer *render,int *aux,int Tamanho,string*
 }
 
 
+
+
 void Acao_Repeat(botoes *Botao,SDL_Renderer *render,int *aux,string* local){
 
     Botao->Brepeat.destino.x=290;
@@ -127,6 +120,60 @@ void Acao_Repeat(botoes *Botao,SDL_Renderer *render,int *aux,string* local){
 
 }
 
+int Acao_Skip(botoes *Botao,SDL_Renderer *render,int aux,int Tamanho,string* local){
+
+    aux++;
+    cout<<endl<<"aux:"<<aux;
+    if(aux>=Tamanho){
+        aux=0;
+    }
+    //cout<<local[aux]<<endl;
+    Botao->Bskip.destino.x=580;
+    Botao->Bskip.destino.y=460;
+    Botao->Bskip.destino.h=40;
+    Botao->Bskip.destino.w=40;
+    Mix_FreeMusic(musica);
+    musica= Mix_LoadMUS(local[aux].c_str());
+    Mix_PlayMusic(musica,0);
+return aux;
+
+
+}
+
+int Acao_Return(botoes *Botao,SDL_Renderer *render,int aux,int Tamanho,string* local){
+    aux--;
+    cout<<endl<<"aux:"<<aux;
+    if(aux<0){
+    aux=Tamanho-1;
+    }
+    //cout<<local[aux]<<endl;
+    Botao->Breturn.destino.x=180;
+    Botao->Breturn.destino.y=460;
+    Botao->Breturn.destino.h=40;
+    Botao->Breturn.destino.w=40;
+    Mix_FreeMusic(musica);
+    musica= Mix_LoadMUS(local[aux].c_str());
+    Mix_PlayMusic(musica,0);
+    return aux;
+}
+
+void Acao_Pause(){
+    if(tocando==false){
+        Mix_ResumeMusic();
+        tocando=true;
+
+    }
+
+    else{
+        Mix_PauseMusic();
+        tocando=false;
+
+    }
+
+
+}
+
+
 
 
 
@@ -140,90 +187,35 @@ int Verifica(botoes* Botao,int x,int y,string* local,int aux,SDL_Renderer* rende
     if(random){
         if(x>=Botao->Bskip.destino.x&&x<=Botao->Bskip.destino.x+Botao->Bskip.destino.w&&y>=Botao->Bskip.destino.y&&y<=Botao->Bskip.destino.y+Botao->Bskip.destino.h)
             aux=Musica_aleatoria(aux,Tamanho,local);
+
         else if(x>=Botao->Breturn.destino.x&&x<=Botao->Breturn.destino.x+Botao->Breturn.destino.w&&y>=Botao->Breturn.destino.y&&y<=Botao->Breturn.destino.y+Botao->Breturn.destino.h)
             aux=Musica_aleatoria(aux,Tamanho,local);
 
-        else if(x>=Botao->Brandom.destino.x&&x<=Botao->Brandom.destino.x+Botao->Brandom.destino.w&&y>=Botao->Brandom.destino.y&&y<=Botao->Brandom.destino.y+Botao->Brandom.destino.h){
+        else if(x>=Botao->Brandom.destino.x&&x<=Botao->Brandom.destino.x+Botao->Brandom.destino.w&&y>=Botao->Brandom.destino.y&&y<=Botao->Brandom.destino.y+Botao->Brandom.destino.h)
                  Acao_Random(Botao,render,&aux,Tamanho,local);
 
-        }
-
-        else if(x>=Botao->Brepeat.destino.x&&x<=Botao->Brepeat.destino.x+Botao->Brepeat.destino.w&&y>=Botao->Brepeat.destino.y&&y<=Botao->Brepeat.destino.y+Botao->Brepeat.destino.h){
+        else if(x>=Botao->Brepeat.destino.x&&x<=Botao->Brepeat.destino.x+Botao->Brepeat.destino.w&&y>=Botao->Brepeat.destino.y&&y<=Botao->Brepeat.destino.y+Botao->Brepeat.destino.h)
                 Acao_Repeat(Botao,render,&aux,local);
 
-    }
-
+        else if (x>=Botao->Bpause.destino.x&&x<=Botao->Bpause.destino.x+Botao->Bpause.destino.w&&y>=Botao->Bpause.destino.y&&y<=Botao->Bpause.destino.y+Botao->Bpause.destino.h)
+            Acao_Pause();
         return aux;
+        }
 
-
-
-
-    }
     else{
+    if(x>=Botao->Bskip.destino.x&&x<=Botao->Bskip.destino.x+Botao->Bskip.destino.w&&y>=Botao->Bskip.destino.y&&y<=Botao->Bskip.destino.y+Botao->Bskip.destino.h)
+        aux=Acao_Skip(Botao,render,aux,Tamanho,local);
 
+    else if (x>=Botao->Bpause.destino.x&&x<=Botao->Bpause.destino.x+Botao->Bpause.destino.w&&y>=Botao->Bpause.destino.y&&y<=Botao->Bpause.destino.y+Botao->Bpause.destino.h)
+        Acao_Pause();
+    else if(x>=Botao->Breturn.destino.x&&x<=Botao->Breturn.destino.x+Botao->Breturn.destino.w&&y>=Botao->Breturn.destino.y&&y<=Botao->Breturn.destino.y+Botao->Breturn.destino.h)
+      aux=Acao_Return(Botao,render,aux,Tamanho,local);
 
-
-
-    if(x>=Botao->Bskip.destino.x&&x<=Botao->Bskip.destino.x+Botao->Bskip.destino.w&&y>=Botao->Bskip.destino.y&&y<=Botao->Bskip.destino.y+Botao->Bskip.destino.h){
-            aux++;
-            cout<<endl<<"aux:"<<aux;
-            if(aux>=Tamanho){
-            aux=0;
-            }
-            //cout<<local[aux]<<endl;
-            Botao->Bskip.destino.x=580;
-            Botao->Bskip.destino.y=460;
-            Botao->Bskip.destino.h=40;
-            Botao->Bskip.destino.w=40;
-            Mix_FreeMusic(musica);
-            musica= Mix_LoadMUS(local[aux].c_str());
-            Mix_PlayMusic(musica,0);
-            return aux;
-    }
-    else if (x>=Botao->Bpause.destino.x&&x<=Botao->Bpause.destino.x+Botao->Bpause.destino.w&&y>=Botao->Bpause.destino.y&&y<=Botao->Bpause.destino.y+Botao->Bpause.destino.h){
-
-        if(tocando==false){
-            Mix_ResumeMusic();
-            tocando=true;
-
-        }
-
-        else{
-            Mix_PauseMusic();
-            tocando=false;
-
-        }
-
-
-    }
-    else if(x>=Botao->Breturn.destino.x&&x<=Botao->Breturn.destino.x+Botao->Breturn.destino.w&&y>=Botao->Breturn.destino.y&&y<=Botao->Breturn.destino.y+Botao->Breturn.destino.h){
-            aux--;
-            cout<<endl<<"aux:"<<aux;
-            if(aux<0){
-            aux=Tamanho-1;
-            }
-            //cout<<local[aux]<<endl;
-            Botao->Breturn.destino.x=180;
-            Botao->Breturn.destino.y=460;
-            Botao->Breturn.destino.h=40;
-            Botao->Breturn.destino.w=40;
-            Mix_FreeMusic(musica);
-            musica= Mix_LoadMUS(local[aux].c_str());
-            Mix_PlayMusic(musica,0);
-            return aux;
-
-    }
-    else if(x>=Botao->Brepeat.destino.x&&x<=Botao->Brepeat.destino.x+Botao->Brepeat.destino.w&&y>=Botao->Brepeat.destino.y&&y<=Botao->Brepeat.destino.y+Botao->Brepeat.destino.h){
-
+    else if(x>=Botao->Brepeat.destino.x&&x<=Botao->Brepeat.destino.x+Botao->Brepeat.destino.w&&y>=Botao->Brepeat.destino.y&&y<=Botao->Brepeat.destino.y+Botao->Brepeat.destino.h)
         Acao_Repeat(Botao,render,&aux,local);
 
-}
-   else if(x>=Botao->Brandom.destino.x&&x<=Botao->Brandom.destino.x+Botao->Brandom.destino.w&&y>=Botao->Brandom.destino.y&&y<=Botao->Brandom.destino.y+Botao->Brandom.destino.h){
+   else if(x>=Botao->Brandom.destino.x&&x<=Botao->Brandom.destino.x+Botao->Brandom.destino.w&&y>=Botao->Brandom.destino.y&&y<=Botao->Brandom.destino.y+Botao->Brandom.destino.h)
             Acao_Random(Botao,render,&aux,Tamanho,local);
-
-    }
-
-
 
     return aux;
 

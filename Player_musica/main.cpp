@@ -125,6 +125,7 @@ while(1){
         Botao.Bskip.destino.h=80;
         Botao.Bskip.destino.w=80;
 
+
         Botao.Breturn.destino.x=160;
         Botao.Breturn.destino.y=440;
         Botao.Breturn.destino.h=80;
@@ -157,15 +158,7 @@ while(1){
 
 
     if((acabou==true&&repeat==false)||(Mix_PlayingMusic()==0&&repeat==false)){
-        aux++;
-        cout<<endl<<"aux:"<<aux;
-        if(aux>=Tamanho){
-            aux=0;
-        }
-
-        Mix_FreeMusic(musica);
-        musica= Mix_LoadMUS(local[aux].c_str());
-        Mix_PlayMusic(musica,0);
+        aux=Acao_Skip(&Botao,render,aux,Tamanho,local);
         acabou =false;
     }
 
