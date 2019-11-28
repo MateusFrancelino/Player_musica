@@ -94,17 +94,12 @@ while(1){
     //cout<<Mix_PlayingMusic()<<endl;
 
     SDL_RenderClear(render);
-    if(tocando==true)
-        SDL_RenderCopy(render,Botao.Bpause.textura,&Botao.Bpause.origem,&Botao.Bpause.destino);
-    else
-        SDL_RenderCopy(render,Botao.Bplay.textura,&Botao.Bplay.origem,&Botao.Bplay.destino);
 
 
-    SDL_RenderCopy(render,Botao.Bskip.textura,&Botao.Bskip.origem,&Botao.Bskip.destino);
-    SDL_RenderCopy(render,Botao.Breturn.textura,&Botao.Breturn.origem,&Botao.Breturn.destino);
-    SDL_RenderCopy(render,Botao.Brepeat.textura,&Botao.Brepeat.origem,&Botao.Brepeat.destino);
-    SDL_RenderCopy(render,Botao.Brandom.textura,&Botao.Brandom.origem,&Botao.Brandom.destino);
-    SDL_RenderPresent(render);
+    SDL_RenderCopy(render,Botao.Bskip.textura_normal,&Botao.Bskip.origem,&Botao.Bskip.destino);
+    SDL_RenderCopy(render,Botao.Breturn.textura_normal,&Botao.Breturn.origem,&Botao.Breturn.destino);
+    Alterna_Botao(&Botao,render);
+
 
 
 
@@ -151,7 +146,7 @@ while(1){
 
     Mix_HookMusicFinished(musicFinished);
 
-    if((acabou==true&&random==true)||(Mix_PlayingMusic()==0&&random==true)){
+   /* if((acabou==true&&random==true)||(Mix_PlayingMusic()==0&&random==true)){
 
         aux=Random(Tamanho);
 
@@ -161,8 +156,10 @@ while(1){
         acabou =false;
 
         cout << "aux no if de random: "<<aux<<endl;
-    }
-    else if((acabou==true&&repeat==false)||(Mix_PlayingMusic()==0&&repeat==false)){
+    }*/
+
+
+    if((acabou==true&&repeat==false)||(Mix_PlayingMusic()==0&&repeat==false)){
         aux++;
         cout<<endl<<"aux:"<<aux;
         if(aux>=Tamanho){
@@ -174,6 +171,10 @@ while(1){
         Mix_PlayMusic(musica,0);
         acabou =false;
     }
+
+
+    SDL_RenderPresent(render);
+
 
     }
 

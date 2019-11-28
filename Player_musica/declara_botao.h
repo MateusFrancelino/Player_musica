@@ -6,12 +6,14 @@
 #include <windows.h>
 #include <dirent.h>
 #include <fstream>
+
 using namespace std;
 
 struct  botao{
     SDL_Rect origem;
     SDL_Rect destino;
-    SDL_Texture* textura;
+    SDL_Texture* textura_normal;
+    SDL_Texture* textura_clique;
 
 
 
@@ -40,7 +42,8 @@ void Declarar_botoes(botoes*Botao,SDL_Renderer*render){
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///RANDOM
-    Botao->Brandom.textura=CarregaImagem("random.bmp",render);
+    Botao->Brandom.textura_normal=CarregaImagem("random.bmp",render);
+    Botao->Brandom.textura_clique=CarregaImagem("random_clique.bmp",render);
     Botao->Brandom.origem.x=0;
     Botao->Brandom.origem.y=0;
     Botao->Brandom.origem.h=980;
@@ -53,7 +56,8 @@ void Declarar_botoes(botoes*Botao,SDL_Renderer*render){
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //REPEAT
-    Botao->Brepeat.textura=CarregaImagem("repeat.bmp",render);
+    Botao->Brepeat.textura_normal=CarregaImagem("repeat.bmp",render);
+    Botao->Brepeat.textura_clique=CarregaImagem("repeat_clique.bmp",render);
     Botao->Brepeat.origem.x=0;
     Botao->Brepeat.origem.y=0;
     Botao->Brepeat.origem.h=980;
@@ -65,7 +69,7 @@ void Declarar_botoes(botoes*Botao,SDL_Renderer*render){
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //PLAY
-    Botao->Bplay.textura=CarregaImagem("play.bmp",render);
+    Botao->Bplay.textura_normal=CarregaImagem("play.bmp",render);
     Botao->Bplay.origem.x=0;
     Botao->Bplay.origem.y=0;
     Botao->Bplay.origem.h=980;
@@ -77,7 +81,7 @@ void Declarar_botoes(botoes*Botao,SDL_Renderer*render){
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //RETURN
-    Botao->Breturn.textura=CarregaImagem("return.bmp",render);
+    Botao->Breturn.textura_normal=CarregaImagem("return.bmp",render);
     Botao->Breturn.origem.x=0;
     Botao->Breturn.origem.y=0;
     Botao->Breturn.origem.h=980;
@@ -89,7 +93,7 @@ void Declarar_botoes(botoes*Botao,SDL_Renderer*render){
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //PAUSE
-    Botao->Bpause.textura=CarregaImagem("pause.bmp",render);
+    Botao->Bpause.textura_normal=CarregaImagem("pause.bmp",render);
     Botao->Bpause.origem.x=0;
     Botao->Bpause.origem.y=0;
     Botao->Bpause.origem.h=980;
@@ -101,7 +105,7 @@ void Declarar_botoes(botoes*Botao,SDL_Renderer*render){
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //SKIP
-    Botao->Bskip.textura=CarregaImagem("skip.bmp",render);
+    Botao->Bskip.textura_normal=CarregaImagem("skip.bmp",render);
     Botao->Bskip.origem.x=0;
     Botao->Bskip.origem.y=0;
     Botao->Bskip.origem.h=980;
@@ -113,4 +117,3 @@ void Declarar_botoes(botoes*Botao,SDL_Renderer*render){
 
 }
 #endif // DECLARA_BOTAO_H
-//
