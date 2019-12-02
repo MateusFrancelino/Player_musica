@@ -18,6 +18,7 @@ struct Musica{
      bool acabou = false;
      bool repeat = false;
      bool random = false;
+     bool som=true;
 };
 
 
@@ -34,7 +35,24 @@ int Random(int Tamanho){
 
 
 
-int Musica_aleatoria(int aux,int Tamanho, string* local, Musica *musica){
+int Musica_aleatoria(botoes *Botao,int aux,int Tamanho, string* local, Musica *musica,int i){
+    if(i==1){
+        Botao->Bskip.destino.x=280;
+        Botao->Bskip.destino.y=460;
+        Botao->Bskip.destino.h=40;
+        Botao->Bskip.destino.w=40;
+
+    }
+    else{
+        Botao->Breturn.destino.x=80;
+        Botao->Breturn.destino.y=460;
+        Botao->Breturn.destino.h=40;
+        Botao->Breturn.destino.w=40;
+    }
+
+
+
+
     aux=Random(Tamanho);
     Mix_FreeMusic(musica->audio);
     musica->audio= Mix_LoadMUS(local[aux].c_str());
@@ -67,13 +85,35 @@ void Alterna_Botao(botoes *Botao,SDL_Renderer*render,Musica *musica){
      else
          SDL_RenderCopy(render,Botao->Bplay.textura_normal,&Botao->Bplay.origem,&Botao->Bplay.destino);
 
+
+     if(Botao->Bsom.volume==3){
+         Mix_VolumeMusic(128);
+     SDL_RenderCopy(render,Botao->Bsom.textura_vol3,&Botao->Bsom.origem,&Botao->Bsom.destino);
+
+     }
+else if(Botao->Bsom.volume==2){
+         Mix_VolumeMusic(70);
+         SDL_RenderCopy(render,Botao->Bsom.textura_vol2,&Botao->Bsom.origem,&Botao->Bsom.destino);
+     }
+
+
+else if(Botao->Bsom.volume==1){
+         Mix_VolumeMusic(30);
+    SDL_RenderCopy(render,Botao->Bsom.textura_vol1,&Botao->Bsom.origem,&Botao->Bsom.destino);
+}
+
+
+else{
+         Mix_VolumeMusic(0);
+         SDL_RenderCopy(render,Botao->Bsom.textura_vol0,&Botao->Bsom.origem,&Botao->Bsom.destino);
+     }
 }
 
 void Acao_Random(botoes *Botao,SDL_Renderer *render,int *aux,int Tamanho,string* local,Musica *musica){
-    Botao->Brandom.destino.x=480;
-    Botao->Brandom.destino.y=520;
-    Botao->Brandom.destino.h=40;
-    Botao->Brandom.destino.w=40;
+    Botao->Brandom.destino.x=330;
+    Botao->Brandom.destino.y=550;
+    Botao->Brandom.destino.h=20;
+    Botao->Brandom.destino.w=20;
      if(musica->random){
          Alterna_Botao(Botao,render,musica);
             musica->random=false;
@@ -94,10 +134,10 @@ void Acao_Random(botoes *Botao,SDL_Renderer *render,int *aux,int Tamanho,string*
 
 void Acao_Repeat(botoes *Botao,SDL_Renderer *render,int *aux,string* local, Musica *musica){
 
-    Botao->Brepeat.destino.x=290;
-    Botao->Brepeat.destino.y=520;
-    Botao->Brepeat.destino.h=40;
-    Botao->Brepeat.destino.w=40;
+    Botao->Brepeat.destino.x=50;
+    Botao->Brepeat.destino.y=550;
+    Botao->Brepeat.destino.h=20;
+    Botao->Brepeat.destino.w=20;
     if(musica->repeat)
     {
         Alterna_Botao(Botao,render,musica);
@@ -112,6 +152,7 @@ void Acao_Repeat(botoes *Botao,SDL_Renderer *render,int *aux,string* local, Musi
         musica->audio= Mix_LoadMUS(local[*aux].c_str());
         Mix_PlayMusic(musica->audio,-1);
         musica->repeat=true;
+
     }
 }
 
@@ -122,10 +163,11 @@ int Acao_Skip(botoes *Botao,SDL_Renderer *render,int aux,int Tamanho,string* loc
         aux=0;
     }
     //cout<<local[aux]<<endl;
-    Botao->Bskip.destino.x=580;
+    Botao->Bskip.destino.x=280;
     Botao->Bskip.destino.y=460;
     Botao->Bskip.destino.h=40;
     Botao->Bskip.destino.w=40;
+
     Mix_FreeMusic(musica->audio);
     musica->audio= Mix_LoadMUS(local[aux].c_str());
     Mix_PlayMusic(musica->audio,0);
@@ -139,7 +181,7 @@ int Acao_Return(botoes *Botao,SDL_Renderer *render,int aux,int Tamanho,string* l
     aux=Tamanho-1;
     }
     //cout<<local[aux]<<endl;
-    Botao->Breturn.destino.x=180;
+    Botao->Breturn.destino.x=80;
     Botao->Breturn.destino.y=460;
     Botao->Breturn.destino.h=40;
     Botao->Breturn.destino.w=40;
@@ -160,16 +202,34 @@ void Acao_Pause(Musica *musica){
     }
 }
 
+void Acao_volume(botoes *Botao,Musica* musica){
+
+
+    Botao->Bsom.volume--;
+
+    if(Botao->Bsom.volume<0){
+
+       Botao->Bsom.volume=3;
+
+    }
+
+
+
+    Mix_VolumeMusic(100*musica->som);
+
+
+
+}
 
 int Verifica(botoes* Botao,int x,int y,string* local,int aux,SDL_Renderer* render, int Tamanho,Musica *musica){
     cout <<"X:" <<x<<" Y:" << y << endl;
 
-    if(musica->random){
+    if((musica->random|| (musica->random&&musica->repeat))){
         if(x>=Botao->Bskip.destino.x&&x<=Botao->Bskip.destino.x+Botao->Bskip.destino.w&&y>=Botao->Bskip.destino.y&&y<=Botao->Bskip.destino.y+Botao->Bskip.destino.h)
-            aux=Musica_aleatoria(aux,Tamanho,local,musica);
+            aux=Musica_aleatoria(Botao,aux,Tamanho,local,musica,1);
 
         else if(x>=Botao->Breturn.destino.x&&x<=Botao->Breturn.destino.x+Botao->Breturn.destino.w&&y>=Botao->Breturn.destino.y&&y<=Botao->Breturn.destino.y+Botao->Breturn.destino.h)
-            aux=Musica_aleatoria(aux,Tamanho,local,musica);
+            aux=Musica_aleatoria(Botao,aux,Tamanho,local,musica,0);
 
         else if(x>=Botao->Brandom.destino.x&&x<=Botao->Brandom.destino.x+Botao->Brandom.destino.w&&y>=Botao->Brandom.destino.y&&y<=Botao->Brandom.destino.y+Botao->Brandom.destino.h)
                  Acao_Random(Botao,render,&aux,Tamanho,local,musica);
@@ -179,6 +239,9 @@ int Verifica(botoes* Botao,int x,int y,string* local,int aux,SDL_Renderer* rende
 
         else if (x>=Botao->Bpause.destino.x&&x<=Botao->Bpause.destino.x+Botao->Bpause.destino.w&&y>=Botao->Bpause.destino.y&&y<=Botao->Bpause.destino.y+Botao->Bpause.destino.h)
             Acao_Pause(musica);
+        else if(x>=Botao->Bsom.destino.x&&x<=Botao->Bsom.destino.x+Botao->Bsom.destino.w&&y>=Botao->Bsom.destino.y&&y<=Botao->Bsom.destino.y+Botao->Bsom.destino.h)
+            Acao_volume(Botao,musica);
+
         return aux;
         }
 
@@ -196,6 +259,9 @@ int Verifica(botoes* Botao,int x,int y,string* local,int aux,SDL_Renderer* rende
 
    else if(x>=Botao->Brandom.destino.x&&x<=Botao->Brandom.destino.x+Botao->Brandom.destino.w&&y>=Botao->Brandom.destino.y&&y<=Botao->Brandom.destino.y+Botao->Brandom.destino.h)
             Acao_Random(Botao,render,&aux,Tamanho,local,musica);
+
+   else if(x>=Botao->Bsom.destino.x&&x<=Botao->Bsom.destino.x+Botao->Bsom.destino.w&&y>=Botao->Bsom.destino.y&&y<=Botao->Bsom.destino.y+Botao->Bsom.destino.h)
+        Acao_volume(Botao,musica);
 
     return aux;
 
