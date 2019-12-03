@@ -2,6 +2,7 @@
 #include "verifica_cliques_botoes.h"
 #include "manipula_arquivo.h"
 #include "acao_botoes.h"
+#include "retorna_tamanho_botao.h"
 #include <SDL2/SDL_ttf.h>
 
 
@@ -33,22 +34,16 @@ Musica musica;
  SDL_Init(SDL_INIT_EVERYTHING);
  SDL_Window* janela =SDL_CreateWindow("Player",SDL_WINDOWPOS_CENTERED,SDL_WINDOWPOS_CENTERED,400,600,0);
  SDL_Renderer* render= SDL_CreateRenderer(janela,-1,0);
- SDL_SetRenderDrawColor(render,255,255,255,0);
+ SDL_SetRenderDrawColor(render,255,0,255,0);
 
 
  /*TTF_Init();
-
-
-
  TTF_Font *fonte = TTF_OpenFont("CURVE-Thin.ttf",12);
  SDL_Color corFonte = {255,255,0,0};
  SDL_Color corFundo = {255,0,0,0};
-
  SDL_Surface *text = TTF_RenderText_Shaded(fonte,"oi",corFonte,corFundo);
  SDL_Texture* texto =SDL_CreateTextureFromSurface(render,text);
-
  SDL_Rect localTexto = {150,250,0,0};
-
 */
 
 Declarar_botoes(&Botao,render);
@@ -171,47 +166,8 @@ while(1){
 
 
     case SDL_MOUSEBUTTONUP:
-        Botao.Bsom.destino.x=180;
-        Botao.Bsom.destino.y=540;
-        Botao.Bsom.destino.h=40;
-        Botao.Bsom.destino.w=40;
 
-        Botao.Brandom.destino.x=320;
-        Botao.Brandom.destino.y=540;
-        Botao.Brandom.destino.h=40;
-        Botao.Brandom.destino.w=40;
-
-        Botao.Brepeat.destino.x=40;
-        Botao.Brepeat.destino.y=540;
-        Botao.Brepeat.destino.h=40;
-        Botao.Brepeat.destino.w=40;
-
-        Botao.Bplay.destino.x=160;
-        Botao.Bplay.destino.y=440;
-        Botao.Bplay.destino.h=80;
-        Botao.Bplay.destino.w=80;
-
-        Botao.Breturn.destino.x=60;
-        Botao.Breturn.destino.y=440;
-        Botao.Breturn.destino.h=80;
-        Botao.Breturn.destino.w=80;
-
-
-        Botao.Bpause.destino.x=160;
-        Botao.Bpause.destino.y=440;
-        Botao.Bpause.destino.h=80;
-        Botao.Bpause.destino.w=80;
-
-        Botao.Bskip.destino.x=260;
-        Botao.Bskip.destino.y=440;
-        Botao.Bskip.destino.h=80;
-        Botao.Bskip.destino.w=80;
-
-
-
-
-
-
+         Normaliza_botoes(&Botao);
 
 
 
