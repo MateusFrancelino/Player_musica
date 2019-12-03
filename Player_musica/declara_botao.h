@@ -62,6 +62,7 @@ SDL_Texture *CarregaImagem(const char *imagem, SDL_Renderer* renderizador){
     return textura;
 }
 
+
 void Declarar_botoes(botoes*Botao,SDL_Renderer*render){
 
 
@@ -110,7 +111,7 @@ void Declarar_botoes(botoes*Botao,SDL_Renderer*render){
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //PLAY
-    Botao->Bplay.textura_normal=CarregaImagem("playyy.bmp",render);
+    Botao->Bplay.textura_normal=CarregaImagem("play.bmp",render);
 
     Botao->Bplay.origem.x=0;
     Botao->Bplay.origem.y=0;
@@ -123,7 +124,7 @@ void Declarar_botoes(botoes*Botao,SDL_Renderer*render){
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //RETURN
-    Botao->Breturn.textura_normal=CarregaImagem("returnn.bmp",render);
+    Botao->Breturn.textura_normal=CarregaImagem("return.bmp",render);
     Botao->Breturn.origem.x=0;
     Botao->Breturn.origem.y=0;
     Botao->Breturn.origem.h=50;
@@ -135,7 +136,7 @@ void Declarar_botoes(botoes*Botao,SDL_Renderer*render){
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //PAUSE
-    Botao->Bpause.textura_normal=CarregaImagem("pauseeeeee.bmp",render);
+    Botao->Bpause.textura_normal=CarregaImagem("pause.bmp",render);
     Botao->Bpause.origem.x=0;
     Botao->Bpause.origem.y=0;
     Botao->Bpause.origem.h=900;
@@ -147,7 +148,7 @@ void Declarar_botoes(botoes*Botao,SDL_Renderer*render){
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //SKIP
-    Botao->Bskip.textura_normal=CarregaImagem("skipp.bmp",render);
+    Botao->Bskip.textura_normal=CarregaImagem("skip.bmp",render);
     Botao->Bskip.origem.x=0;
     Botao->Bskip.origem.y=0;
     Botao->Bskip.origem.h=50;
