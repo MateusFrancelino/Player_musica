@@ -1,6 +1,9 @@
 #include "declara_botao.h"
 #include "verifica_cliques_botoes.h"
 #include "manipula_arquivo.h"
+#include "acao_botoes.h"
+#include <SDL2/SDL_ttf.h>
+
 
 using namespace std;
 #undef main
@@ -30,8 +33,23 @@ Musica musica;
  SDL_Init(SDL_INIT_EVERYTHING);
  SDL_Window* janela =SDL_CreateWindow("Player",SDL_WINDOWPOS_CENTERED,SDL_WINDOWPOS_CENTERED,400,600,0);
  SDL_Renderer* render= SDL_CreateRenderer(janela,-1,0);
- SDL_SetRenderDrawColor(render,100,100,100,0);
+ SDL_SetRenderDrawColor(render,255,255,255,0);
 
+
+ /*TTF_Init();
+
+
+
+ TTF_Font *fonte = TTF_OpenFont("CURVE-Thin.ttf",12);
+ SDL_Color corFonte = {255,255,0,0};
+ SDL_Color corFundo = {255,0,0,0};
+
+ SDL_Surface *text = TTF_RenderText_Shaded(fonte,"oi",corFonte,corFundo);
+ SDL_Texture* texto =SDL_CreateTextureFromSurface(render,text);
+
+ SDL_Rect localTexto = {150,250,0,0};
+
+*/
 
 Declarar_botoes(&Botao,render);
 
@@ -97,11 +115,14 @@ destino.x=0;
 destino.y=0;
 destino.w=400;
 destino.h=600;
-SDL_Texture *coisa=CarregaImagem("wave.bmp",render);
+//SDL_Texture *coisa=CarregaImagem("1",render);
 
 
 
 while(1){
+
+
+
 
     //cout<<Mix_PlayingMusic()<<endl;
 
@@ -122,7 +143,8 @@ while(1){
 
 
 
-
+   // SDL_BlitSurface(texto,NULL,janela,&localTexto);
+    //SDL_Flip(janela);
 
 
 
@@ -130,7 +152,7 @@ while(1){
 
     SDL_RenderClear(render);
 
-    SDL_RenderCopy(render,coisa,&origem,&destino);
+    //SDL_RenderCopy(render,texto,NULL,&localTexto);
 
     SDL_RenderCopy(render,Botao.Bskip.textura_normal,&Botao.Bskip.origem,&Botao.Bskip.destino);
     SDL_RenderCopy(render,Botao.Breturn.textura_normal,&Botao.Breturn.origem,&Botao.Breturn.destino);
@@ -235,5 +257,5 @@ while(1){
     Mix_CloseAudio();
     //Mix_FreeChunk(som);
     Mix_FreeMusic(musica.audio);
-//https://www.onlinewebfonts.com/icon/packs_1469
+//https://www.onlinewebfonts.com/icon/packs_1469         https://www.libsdl.org/projects/SDL_ttf/
 }
