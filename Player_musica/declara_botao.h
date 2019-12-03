@@ -124,7 +124,7 @@ void Declarar_botoes(botoes*Botao,SDL_Renderer*render){
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //RETURN
-    Botao->Breturn.textura_normal=CarregaImagem("return.bmp",render);
+    Botao->Breturn.textura_normal=CarregaImagem("returnn.bmp",render);
     Botao->Breturn.origem.x=0;
     Botao->Breturn.origem.y=0;
     Botao->Breturn.origem.h=50;

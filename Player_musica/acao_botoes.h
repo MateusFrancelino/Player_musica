@@ -73,20 +73,18 @@ void Acao_Repeat(botoes *Botao,SDL_Renderer *render,int *aux,string* local, Musi
     Botao->Brepeat.destino.w=20;
     if(musica->repeat)
     {
-        Alterna_Botao(Botao,render,musica);
-        musica->audio= Mix_LoadMUS(local[*aux].c_str());
-        Mix_PlayMusic(musica->audio,0);
+
         musica->repeat=false;
     }
     else
     {
-        Alterna_Botao(Botao,render,musica);
-
         musica->audio= Mix_LoadMUS(local[*aux].c_str());
         Mix_PlayMusic(musica->audio,-1);
         musica->repeat=true;
-
+        musica->tocando=true;
     }
+
+
 }
 
 int Acao_Skip(botoes *Botao,SDL_Renderer *render,int aux,int Tamanho,string* local, Musica *musica){
@@ -95,7 +93,6 @@ int Acao_Skip(botoes *Botao,SDL_Renderer *render,int aux,int Tamanho,string* loc
     if(aux>=Tamanho){
         aux=0;
     }
-    //cout<<local[aux]<<endl;
     Botao->Bskip.destino.x=280;
     Botao->Bskip.destino.y=460;
     Botao->Bskip.destino.h=40;
@@ -104,6 +101,7 @@ int Acao_Skip(botoes *Botao,SDL_Renderer *render,int aux,int Tamanho,string* loc
     Mix_FreeMusic(musica->audio);
     musica->audio= Mix_LoadMUS(local[aux].c_str());
     Mix_PlayMusic(musica->audio,0);
+    musica->tocando=true;
 return aux;
 }
 
@@ -114,7 +112,7 @@ int Acao_Return(botoes *Botao,SDL_Renderer *render,int aux,int Tamanho,string* l
     if(aux<0){
     aux=Tamanho-1;
     }
-    //cout<<local[aux]<<endl;
+
     Botao->Breturn.destino.x=80;
     Botao->Breturn.destino.y=460;
     Botao->Breturn.destino.h=40;
@@ -122,6 +120,8 @@ int Acao_Return(botoes *Botao,SDL_Renderer *render,int aux,int Tamanho,string* l
     Mix_FreeMusic(musica->audio);
     musica->audio= Mix_LoadMUS(local[aux].c_str());
     Mix_PlayMusic(musica->audio,0);
+    musica->tocando=true;
+
     return aux;
 }
 
@@ -155,6 +155,7 @@ void Acao_volume(botoes *Botao,Musica* musica){
 
 int Musica_aleatoria(botoes *Botao,int aux,int Tamanho, string* local, Musica *musica,int i){
     if(i==1){
+
         Botao->Bskip.destino.x=280;
         Botao->Bskip.destino.y=460;
         Botao->Bskip.destino.h=40;
@@ -167,15 +168,15 @@ int Musica_aleatoria(botoes *Botao,int aux,int Tamanho, string* local, Musica *m
         Botao->Breturn.destino.h=40;
         Botao->Breturn.destino.w=40;
     }
-
-
-
-
     aux=Random(Tamanho);
     Mix_FreeMusic(musica->audio);
     musica->audio= Mix_LoadMUS(local[aux].c_str());
     Mix_PlayMusic(musica->audio,0);
     musica->acabou =false;
+    musica->tocando=true;
+
+
+
 
     cout << "aux no if de random: "<<aux<<endl;
 
@@ -193,6 +194,7 @@ void Acao_Random(botoes *Botao,SDL_Renderer *render,int *aux,int Tamanho,string*
     Botao->Brandom.destino.w=20;
      if(musica->random){
          Alterna_Botao(Botao,render,musica);
+
             musica->random=false;
         }
      else
@@ -203,6 +205,9 @@ void Acao_Random(botoes *Botao,SDL_Renderer *render,int *aux,int Tamanho,string*
             musica->audio= Mix_LoadMUS(local[*aux].c_str());
             Mix_PlayMusic(musica->audio,0);
             musica->random=true;
+            musica->tocando=true;
+
         }
+
 }
 #endif // ACAO_BOTOES_H

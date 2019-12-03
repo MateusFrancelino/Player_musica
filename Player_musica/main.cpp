@@ -10,17 +10,6 @@ using namespace std;
 #undef main
 
 
-
-/*void musicFinished(Musica *musica)
-{
-printf("Music stopped.\n");
-musica- >acabou =true;
-}*/
-
-
-
-
-
 int main()
 {
 botoes Botao;
@@ -34,20 +23,10 @@ Musica musica;
  SDL_Init(SDL_INIT_EVERYTHING);
  SDL_Window* janela =SDL_CreateWindow("Player",SDL_WINDOWPOS_CENTERED,SDL_WINDOWPOS_CENTERED,400,600,0);
  SDL_Renderer* render= SDL_CreateRenderer(janela,-1,0);
- SDL_SetRenderDrawColor(render,255,0,255,0);
+ SDL_SetRenderDrawColor(render,255,255,255,0);
 
-
- /*TTF_Init();
- TTF_Font *fonte = TTF_OpenFont("CURVE-Thin.ttf",12);
- SDL_Color corFonte = {255,255,0,0};
- SDL_Color corFundo = {255,0,0,0};
- SDL_Surface *text = TTF_RenderText_Shaded(fonte,"oi",corFonte,corFundo);
- SDL_Texture* texto =SDL_CreateTextureFromSurface(render,text);
- SDL_Rect localTexto = {150,250,0,0};
-*/
 
 Declarar_botoes(&Botao,render);
-
 
 
 
@@ -98,56 +77,17 @@ musica.audio= Mix_LoadMUS(local[0].c_str());
 
  closedir(dir);
 int aux=0;
-//Mix_PlayChannel(-1,som,0);
-Mix_PlayMusic(musica.audio,0);
-SDL_Rect origem;
-SDL_Rect destino;
-origem.x=0;
-origem.y=0;
-origem.h=598;
-origem.w=403;
-destino.x=0;
-destino.y=0;
-destino.w=400;
-destino.h=600;
-//SDL_Texture *coisa=CarregaImagem("1",render);
 
+Mix_PlayMusic(musica.audio,0);
 
 
 while(1){
 
 
-
-
-    //cout<<Mix_PlayingMusic()<<endl;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-   // SDL_BlitSurface(texto,NULL,janela,&localTexto);
-    //SDL_Flip(janela);
-
-
-
+    //Mix_get
 
 
     SDL_RenderClear(render);
-
-    //SDL_RenderCopy(render,texto,NULL,&localTexto);
 
     SDL_RenderCopy(render,Botao.Bskip.textura_normal,&Botao.Bskip.origem,&Botao.Bskip.destino);
     SDL_RenderCopy(render,Botao.Breturn.textura_normal,&Botao.Breturn.origem,&Botao.Breturn.destino);
@@ -189,11 +129,12 @@ while(1){
                         }
                 }
 
-    //Mix_HookMusicFinished(musicFinished);
 
-    if((musica.acabou==true&&musica.repeat==false)||(Mix_PlayingMusic()==0&&musica.repeat==false)){
+    if((Mix_PlayingMusic()==0)){
         aux=Acao_Skip(&Botao,render,aux,Tamanho,local,&musica);
         musica.acabou =false;
+        Normaliza_botoes(&Botao);
+        cout<<"trocou de musica";
     }
 
 
