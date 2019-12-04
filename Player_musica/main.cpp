@@ -5,20 +5,14 @@
 #include "retorna_tamanho_botao.h"
 #include <SDL2/SDL_ttf.h>
 
-
 using namespace std;
 #undef main
-
 
 int main()
 {
 botoes Botao;
-int x,y;
-
 Musica musica;
-
-
-
+int x,y;
 
  SDL_Init(SDL_INIT_EVERYTHING);
  SDL_Window* janela =SDL_CreateWindow("Player",SDL_WINDOWPOS_CENTERED,SDL_WINDOWPOS_CENTERED,400,600,0);
@@ -27,15 +21,6 @@ Musica musica;
 
 
 Declarar_botoes(&Botao,render);
-
-
-
-
-
-
-
-
-
 
 
 
@@ -61,11 +46,8 @@ Declarar_botoes(&Botao,render);
  }
  while ((lsdir=readdir(dir))!=NULL)
  {
-
-
      cout<<endl<<lsdir->d_name;
      arquivosom<<endl<<"C:/teste/"<<lsdir->d_name;
-
  }
 
  int Tamanho = Tamanho_array();
@@ -75,17 +57,15 @@ Declarar_botoes(&Botao,render);
 
 musica.audio= Mix_LoadMUS(local[0].c_str());
 
- closedir(dir);
+closedir(dir);
 int aux=0;
 
 Mix_PlayMusic(musica.audio,0);
 
 
-while(1){
-
-
+while(1)
+{
     //Mix_get
-
 
     SDL_RenderClear(render);
 
@@ -93,63 +73,43 @@ while(1){
     SDL_RenderCopy(render,Botao.Breturn.textura_normal,&Botao.Breturn.origem,&Botao.Breturn.destino);
     Alterna_Botao(&Botao,render,&musica);
 
-
-
-
     SDL_Event evento;
-    while(SDL_PollEvent(&evento)){
-    switch (evento.type) {
-        case SDL_QUIT:
+    while(SDL_PollEvent(&evento))
+                {
+    switch (evento.type)
+                    {
+                    case SDL_QUIT:
 
 
                     break;
 
 
-    case SDL_MOUSEBUTTONUP:
+                    case SDL_MOUSEBUTTONUP:
 
-         Normaliza_botoes(&Botao);
+                        Normaliza_botoes(&Botao);
 
+                    break;
 
+                    case SDL_MOUSEBUTTONDOWN:
 
+                        SDL_GetMouseState(&x,&y);
 
+                        aux=Verifica(&Botao,x,y,local,aux,render,Tamanho,&musica);
+                        cout<<"retornando aux verifica: "<<aux<<endl;
 
-
-
-
-
-        break;
-                  case SDL_MOUSEBUTTONDOWN:
-
-                      SDL_GetMouseState(&x,&y);
-
-                      aux=Verifica(&Botao,x,y,local,aux,render,Tamanho,&musica);
-                      cout<<"retornando aux verifica: "<<aux<<endl;
-
-                        break;
-                        }
+                    break;
+                    }
                 }
 
-
-    if((Mix_PlayingMusic()==0)){
-        aux=Acao_Skip(&Botao,render,aux,Tamanho,local,&musica);
-        musica.acabou =false;
-        Normaliza_botoes(&Botao);
-        cout<<"trocou de musica";
-    }
-
-
-
+        if((Mix_PlayingMusic()==0))
+        {
+            aux=Acao_Skip(&Botao,render,aux,Tamanho,local,&musica);
+            musica.acabou =false;
+            Normaliza_botoes(&Botao);
+            cout<<"trocou de musica";
+        }
     SDL_RenderPresent(render);
-
-
     }
-
-
-
-
-
-
-
 
     Mix_CloseAudio();
     //Mix_FreeChunk(som);
