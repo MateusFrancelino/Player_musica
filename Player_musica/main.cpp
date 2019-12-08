@@ -4,9 +4,26 @@
 #include "acao_botoes.h"
 #include "retorna_tamanho_botao.h"
 
-
 using namespace std;
 #undef main
+
+
+
+/*void Mostra_Album(SDL_Renderer*render,Imagem*Foto_album){
+    SDL_RenderCopy(render,Foto_album->Album,&Foto_album->origem,&Foto_album->destino);
+
+}*/
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -47,12 +64,7 @@ Imagem Foto_album[10];
 
 Declarar_botoes(&Botao,render);
 
-
-Foto_album[0].Album=CarregaImagem("",render);
-Foto_album[0].origem={0,0,0,0};
-Foto_album[0].destino={0,0,0,0};
-
-
+Carrega_Album(Foto_album,render);
 
 
 
@@ -148,9 +160,9 @@ while(1){
     
     
     
+    SDL_RenderCopy(render,Foto_album[aux].Album,&Foto_album[aux].origem,&Foto_album[aux].destino);
     
     
-    SDL_RenderCopy(render,Foto_album[0].Album,&Foto_album[0].origem,&Foto_album[0].destino);
 
     SDL_RenderPresent(render);
 
