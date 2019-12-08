@@ -83,11 +83,11 @@ void Declarar_botoes(botoes*Botao,SDL_Renderer*render){
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //RETURN
-    Botao->Breturn.textura_normal=CarregaImagem("returnn.bmp",render);
+    Botao->Breturn.textura_normal=CarregaImagem("return.bmp",render);
     Botao->Breturn.origem.x=0;
     Botao->Breturn.origem.y=0;
-    Botao->Breturn.origem.h=50;
-    Botao->Breturn.origem.w=50;
+    Botao->Breturn.origem.h=900;
+    Botao->Breturn.origem.w=900;
     Botao->Breturn.destino.x=60;
     Botao->Breturn.destino.y=440;
     Botao->Breturn.destino.h=80;
@@ -110,8 +110,8 @@ void Declarar_botoes(botoes*Botao,SDL_Renderer*render){
     Botao->Bskip.textura_normal=CarregaImagem("skip.bmp",render);
     Botao->Bskip.origem.x=0;
     Botao->Bskip.origem.y=0;
-    Botao->Bskip.origem.h=50;
-    Botao->Bskip.origem.w=50;
+    Botao->Bskip.origem.h=900;
+    Botao->Bskip.origem.w=900;
     Botao->Bskip.destino.x=260;
     Botao->Bskip.destino.y=440;
     Botao->Bskip.destino.h=80;
