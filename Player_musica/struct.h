@@ -45,3 +45,9 @@ struct botoes{
     botao_som Bsom;
 };
 #endif // STRUCT_H
+
+struct Imagem{
+    SDL_Texture* Album;
+    SDL_Rect origem;
+    SDL_Rect destino;
+};
