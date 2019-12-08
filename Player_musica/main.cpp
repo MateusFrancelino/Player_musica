@@ -16,6 +16,20 @@ botoes Botao;
 int x,y;
 
 Musica musica;
+Imagem Foto_album[10];
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -32,6 +46,11 @@ Musica musica;
  SDL_Rect destinoFundo = {0,0,400,600};
 
 Declarar_botoes(&Botao,render);
+
+
+Foto_album[0].Album=CarregaImagem("",render);
+Foto_album[0].origem={0,0,0,0};
+Foto_album[0].destino={0,0,0,0};
 
 
 
@@ -122,6 +141,16 @@ while(1){
         musica.acabou =false;
     }
 
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    SDL_RenderCopy(render,Foto_album->Album,&Foto_album->origem,&Foto_album->destino);
 
     SDL_RenderPresent(render);
 
