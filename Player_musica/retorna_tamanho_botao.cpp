@@ -20,10 +20,10 @@ void Normaliza_botoes(botoes *Botao){
     Botao->Bplay.destino.h=80;
     Botao->Bplay.destino.w=80;
 
-    Botao->Breturn.destino.x=60;
-    Botao->Breturn.destino.y=440;
-    Botao->Breturn.destino.h=80;
-    Botao->Breturn.destino.w=80;
+    Botao->Breturn.destino.x=70;
+    Botao->Breturn.destino.y=450;
+    Botao->Breturn.destino.h=60;
+    Botao->Breturn.destino.w=60;
 
 
     Botao->Bpause.destino.x=160;
@@ -31,9 +31,9 @@ void Normaliza_botoes(botoes *Botao){
     Botao->Bpause.destino.h=80;
     Botao->Bpause.destino.w=80;
 
-    Botao->Bskip.destino.x=260;
-    Botao->Bskip.destino.y=440;
-    Botao->Bskip.destino.h=80;
-    Botao->Bskip.destino.w=80;
+    Botao->Bskip.destino.x=270;
+    Botao->Bskip.destino.y=450;
+    Botao->Bskip.destino.h=60;
+    Botao->Bskip.destino.w=60;
 
 }

@@ -88,10 +88,10 @@ void Declarar_botoes(botoes*Botao,SDL_Renderer*render){
     Botao->Breturn.origem.y=0;
     Botao->Breturn.origem.h=900;
     Botao->Breturn.origem.w=900;
-    Botao->Breturn.destino.x=60;
-    Botao->Breturn.destino.y=440;
-    Botao->Breturn.destino.h=80;
-    Botao->Breturn.destino.w=80;
+    Botao->Breturn.destino.x=70;
+    Botao->Breturn.destino.y=450;
+    Botao->Breturn.destino.h=60;
+    Botao->Breturn.destino.w=60;
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //PAUSE
@@ -112,10 +112,10 @@ void Declarar_botoes(botoes*Botao,SDL_Renderer*render){
     Botao->Bskip.origem.y=0;
     Botao->Bskip.origem.h=900;
     Botao->Bskip.origem.w=900;
-    Botao->Bskip.destino.x=260;
-    Botao->Bskip.destino.y=440;
-    Botao->Bskip.destino.h=80;
-    Botao->Bskip.destino.w=80;
+    Botao->Bskip.destino.x=270;
+    Botao->Bskip.destino.y=450;
+    Botao->Bskip.destino.h=60;
+    Botao->Bskip.destino.w=60;
 
 }
 #endif // DECLARA_BOTAO_H
