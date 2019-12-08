@@ -150,7 +150,7 @@ while(1){
     
     
     
-    SDL_RenderCopy(render,Foto_album->Album,&Foto_album->origem,&Foto_album->destino);
+    SDL_RenderCopy(render,Foto_album[0].Album,&Foto_album[0].origem,&Foto_album[0].destino);
 
     SDL_RenderPresent(render);
 
