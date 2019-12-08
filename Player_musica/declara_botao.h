@@ -118,4 +118,56 @@ void Declarar_botoes(botoes*Botao,SDL_Renderer*render){
     Botao->Bskip.destino.w=60;
 
 }
+
+void Carrega_Album(Imagem *Foto_album,SDL_Renderer* render){
+    
+    Foto_album[0].Album=CarregaImagem("",render);
+    Foto_album[0].origem={0,0,0,0};
+    Foto_album[0].destino={0,0,0,0};
+    
+    Foto_album[1].Album=CarregaImagem("",render);
+    Foto_album[1].origem={0,0,0,0};
+    Foto_album[1].destino={0,0,0,0};
+    
+    Foto_album[2].Album=CarregaImagem("",render);
+    Foto_album[2].origem={0,0,0,0};
+    Foto_album[2].destino={0,0,0,0};
+    
+    Foto_album[3].Album=CarregaImagem("",render);
+    Foto_album[3].origem={0,0,0,0};
+    Foto_album[3].destino={0,0,0,0};
+    
+    Foto_album[4].Album=CarregaImagem("",render);
+    Foto_album[4].origem={0,0,0,0};
+    Foto_album[4].destino={0,0,0,0};
+    
+    Foto_album[5].Album=CarregaImagem("",render);
+    Foto_album[5].origem={0,0,0,0};
+    Foto_album[5].destino={0,0,0,0};
+    
+    Foto_album[6].Album=CarregaImagem("",render);
+    Foto_album[6].origem={0,0,0,0};
+    Foto_album[6].destino={0,0,0,0};
+    
+    Foto_album[7].Album=CarregaImagem("",render);
+    Foto_album[7].origem={0,0,0,0};
+    Foto_album[7].destino={0,0,0,0};
+    
+    Foto_album[8].Album=CarregaImagem("",render);
+    Foto_album[8].origem={0,0,0,0};
+    Foto_album[8].destino={0,0,0,0};
+    
+    Foto_album[9].Album=CarregaImagem("",render);
+    Foto_album[9].origem={0,0,0,0};
+    Foto_album[9].destino={0,0,0,0};
+    
+    
+    
+}
+
+
+
+
+
+
 #endif // DECLARA_BOTAO_H
